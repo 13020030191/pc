@@ -2,6 +2,68 @@ import React from 'react';
 import moment from 'moment'
 import nzh from 'nzh/cn'
 import { parse, stringify } from 'qs'
+import list from '@/mock/json'
+export function getDataSource(d) {
+  console.log(list)
+  return JSON.parse(window.localStorage.getItem(d))
+}
+
+export function addDataSource(d, obj) {
+  let data = []
+  let array = []
+  data = JSON.parse(window.localStorage.getItem(d))
+  console.log(data, obj, '1')
+  console.log(data, obj, array, '2', JSON.stringify(data))
+  if (stringify(data) === '') {
+    let objects = {
+      ...obj,
+      key: 0
+    }
+    array.unshift(objects)
+    console.log(array, 'if ', JSON.stringify(array))
+    window.localStorage.setItem(d, JSON.stringify(array))
+  } else {
+    let objects = {
+      ...obj,
+      key: data.length
+    }
+    data.unshift(objects)
+    window.localStorage.setItem(d, JSON.stringify(data))
+  }
+  console.log(data, '3', array)
+}
+export function delData(d, i) {
+  let data = JSON.parse(window.localStorage.getItem(d))
+  data.splice(i, 1)
+  console.log(data, 'data', i);
+  let array = [];
+  data.map((v, i) => {
+    array.push({
+      ...v,
+      key: i
+    })
+    return null
+  })
+  console.log(array, 'array')
+  window.localStorage.setItem(d, JSON.stringify(array))
+}
+
+export function editData(d, obj) {
+  let data = JSON.parse(window.localStorage.getItem(d))
+  // data.splice(obj.key, 1, obj)
+  data.map(v => {
+    if (v.key === obj.key) {
+      v.name = obj.name
+      v.age = obj.age
+      v.address = obj.address
+    }
+    return null
+  })
+  window.localStorage.setItem(d, JSON.stringify(data))
+  console.log(data, obj.key, obj)
+}
+
+
 
 export function fixedZero (val) {
   return val * 1 < 10 ? `0${val}` : val
@@ -181,63 +243,6 @@ export function formatWan(val) {
   return result;
 }
 
-export function getDataSource(d) {
-  return JSON.parse(window.localStorage.getItem(d))
-}
 
-export function addDataSource(d, obj) {
-  let data = []
-  let array = []
-  data = JSON.parse(window.localStorage.getItem(d))
-  console.log(data, obj, '1')
-  console.log(data, obj, array, '2', JSON.stringify(data))
-  if (stringify(data) === '') {
-    let objects = {
-      ...obj,
-      key: 0
-    }
-    array.unshift(objects)
-    console.log(array, 'if ', JSON.stringify(array))
-    window.localStorage.setItem(d, JSON.stringify(array))
-  } else {
-    let objects = {
-      ...obj,
-      key: data.length
-    }
-    data.unshift(objects)
-    window.localStorage.setItem(d, JSON.stringify(data))
-  }
-  console.log(data, '3', array)
-}
-export function delData(d, i) {
-  let data = JSON.parse(window.localStorage.getItem(d))
-  data.splice(i, 1)
-  console.log(data, 'data', i);
-  let array = [];
-  data.map((v, i) => {
-    array.push({
-      ...v,
-      key: i
-    })
-    return null
-  })
-  console.log(array, 'array')
-  window.localStorage.setItem(d, JSON.stringify(array))
-}
-
-export function editData(d, obj) {
-  let data = JSON.parse(window.localStorage.getItem(d))
-  // data.splice(obj.key, 1, obj)
-  data.map(v => {
-    if (v.key === obj.key) {
-      v.name = obj.name
-      v.age = obj.age
-      v.address = obj.address
-    }
-    return null
-  })
-  window.localStorage.setItem(d, JSON.stringify(data))
-  console.log(data, obj.key, obj)
-}
 
 

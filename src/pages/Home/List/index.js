@@ -17,7 +17,6 @@ import {
   message
 } from 'antd';
 
-
 const styles = {
   formItem: {
     marginBottom: 0
@@ -258,7 +257,6 @@ class List extends Component {
       labelCol: { span: 2 },
       wrapperCol: { span: 20 },
     };
-    console.log(record.name, 'edit')
     return (
       <Form>
         <Row gutter={24}>

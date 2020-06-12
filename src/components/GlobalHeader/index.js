@@ -71,7 +71,6 @@ class GlobalHeader extends Component {
       logo,
       onMenuClick,
     } = this.props
-    console.log(this.props)
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
         {/* <Menu.Item key='userCenter'>
